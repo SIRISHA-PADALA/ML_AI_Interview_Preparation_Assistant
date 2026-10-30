@@ -1,0 +1,42 @@
+{
+  "files": {
+    "Software_Questions": {
+      "rows": 200,
+      "columns": [
+        "Question Number",
+        "Question",
+        "Answer",
+        "Category",
+        "Difficulty"
+      ],
+      "encoding": "cp1252"
+    },
+    "Placement_Interview_Quiz_Questions": {
+      "rows": 5699,
+      "columns": [
+        "id",
+        "section",
+        "difficulty",
+        "topic",
+        "question",
+        "A",
+        "B",
+        "C",
+        "D",
+        "answer"
+      ],
+      "encoding": "utf-8-sig"
+    }
+  },
+  "quality": {
+    "duplicate_ids_in_mcq": 11,
+    "duplicate_questions_flagged": 271,
+    "missing_option_cells": 6,
+    "answer_key_distribution": {
+      "A": 5531,
+      "B": 99,
+      "C": 47,
+      "D": 22
+    }
+  }
+}

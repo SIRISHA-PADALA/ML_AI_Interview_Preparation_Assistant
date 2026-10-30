@@ -1,0 +1,167 @@
+{
+  "model_name": "TF-IDF (1-2 grams) + Logistic Regression (class_weight=balanced)",
+  "random_state": 42,
+  "dataset_size": 5624,
+  "train_size": 4499,
+  "test_size": 1125,
+  "split": "80% train / 20% test (stratified)",
+  "classes": [
+    "Easy",
+    "Medium",
+    "Hard"
+  ],
+  "class_counts": {
+    "Medium": 2506,
+    "Hard": 2145,
+    "Easy": 973
+  },
+  "accuracy": 0.5289,
+  "precision_macro": 0.4989,
+  "recall_macro": 0.5066,
+  "f1_macro": 0.5004,
+  "precision_weighted": 0.5419,
+  "recall_weighted": 0.5289,
+  "f1_weighted": 0.5336,
+  "per_class": {
+    "Easy": {
+      "precision": 0.3265,
+      "recall": 0.4103,
+      "f1": 0.3636,
+      "support": 195
+    },
+    "Medium": {
+      "precision": 0.6117,
+      "recall": 0.5409,
+      "f1": 0.5742,
+      "support": 501
+    },
+    "Hard": {
+      "precision": 0.5584,
+      "recall": 0.5688,
+      "f1": 0.5635,
+      "support": 429
+    }
+  },
+  "confusion_matrix": [
+    [
+      80,
+      60,
+      55
+    ],
+    [
+      92,
+      271,
+      138
+    ],
+    [
+      73,
+      112,
+      244
+    ]
+  ],
+  "baseline_majority_accuracy": 0.4453,
+  "baseline_majority_f1_macro": 0.2054,
+  "cv_f1_macro_mean": 0.515,
+  "cv_f1_macro_std": 0.0102,
+  "vocabulary_size": 5067,
+  "top_terms_per_class": {
+    "Easy": [
+      "training",
+      "pass",
+      "point",
+      "does docker",
+      "forecasting",
+      "is data",
+      "output of",
+      "json"
+    ],
+    "Hard": [
+      "is the",
+      "testing",
+      "problem",
+      "he",
+      "loss",
+      "control",
+      "learning",
+      "spot"
+    ],
+    "Medium": [
+      "analogy",
+      "coding",
+      "number",
+      "of",
+      "deployment",
+      "sum",
+      "1000",
+      "direction"
+    ]
+  },
+  "sample_predictions": [
+    {
+      "question": "What is TYPES in ABAP?",
+      "actual": "Easy",
+      "predicted": "Hard",
+      "confidence": 0.408
+    },
+    {
+      "question": "A person walks at 4 km/h. How far can he walk in 2.5 hours?",
+      "actual": "Easy",
+      "predicted": "Hard",
+      "confidence": 0.421
+    },
+    {
+      "question": "Choose the antonym of TIMOROUS",
+      "actual": "Medium",
+      "predicted": "Medium",
+      "confidence": 0.809
+    },
+    {
+      "question": "Find the one word substitution for: One who travels from place to place",
+      "actual": "Hard",
+      "predicted": "Medium",
+      "confidence": 0.349
+    },
+    {
+      "question": "Find the number of diagonals in a hexagon.",
+      "actual": "Medium",
+      "predicted": "Medium",
+      "confidence": 0.484
+    },
+    {
+      "question": "Analogy: Pen : Write :: Knife : ?",
+      "actual": "Medium",
+      "predicted": "Medium",
+      "confidence": 0.543
+    },
+    {
+      "question": "What is outlier detection?",
+      "actual": "Easy",
+      "predicted": "Hard",
+      "confidence": 0.482
+    },
+    {
+      "question": "Two unbiased coins tossed. Probability of both tails?",
+      "actual": "Medium",
+      "predicted": "Medium",
+      "confidence": 0.565
+    },
+    {
+      "question": "Complete the statement and explain: Random Forest is",
+      "actual": "Easy",
+      "predicted": "Easy",
+      "confidence": 0.573
+    },
+    {
+      "question": "What is a custom hook?",
+      "actual": "Medium",
+      "predicted": "Hard",
+      "confidence": 0.595
+    }
+  ],
+  "verdict": "The model is better than the majority-class baseline, but only moderately accurate. Difficulty depends on more than wording, and the labels are not guaranteed to be consistent.",
+  "limitations": [
+    "Labels come from the dataset and may not reflect true interview difficulty.",
+    "Only question wording is used, not topic knowledge or answer length.",
+    "Many questions follow templates, so test scores can be optimistic compared with brand-new questions."
+  ]
+}

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interview Twin - AI Interview Preparation Assistant</title>
+<style>
+:root{--bg:#f3f5fb;--card:#fff;--ink:#14172b;--mute:#667085;--line:#e4e7f1;--acc:#5b4bff;--acc2:#8b5cf6;--teal:#0ea5a4;--good:#16a34a;--mid:#d97706;--bad:#dc2626;--soft:#eef0ff;--sb:#10122b;--sbink:#c9cdf0;--sh:0 1px 2px rgba(20,23,43,.05),0 6px 20px rgba(20,23,43,.06);--r:14px}
+[data-t=dark]{--bg:#0c0e1f;--card:#151834;--ink:#eceefc;--mute:#9aa0c7;--line:#262a52;--soft:#1e2250;--sb:#080a19;--sh:0 6px 24px rgba(0,0,0,.35);--acc:#7c6dff;--teal:#2dd4bf;--good:#4ade80;--mid:#fbbf24;--bad:#f87171}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,'Segoe UI',system-ui,-apple-system,Roboto,sans-serif}
+.app{display:flex;min-height:100vh}aside{width:250px;background:var(--sb);color:var(--sbink);padding:20px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;flex:0 0 250px;z-index:30}
+.brand{display:flex;gap:11px;align-items:center;padding:4px 8px 22px;color:#fff}.logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;font-weight:800}
+.brand b{font-size:17px;display:block;line-height:1.1}.brand small{color:var(--sbink);font-size:11px}
+.nv{display:flex;gap:12px;align-items:center;width:100%;background:none;border:0;color:var(--sbink);padding:11px 12px;border-radius:10px;cursor:pointer;font:600 14px inherit;text-align:left;margin-bottom:3px}
+.nv svg{width:19px;height:19px;flex:0 0 19px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.nv:hover{background:rgba(255,255,255,.07)}
+.nv.on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;box-shadow:0 6px 16px rgba(91,75,255,.35)}
+.sbf{margin-top:auto;font-size:12px;padding:12px;border-radius:12px;background:rgba(255,255,255,.06)}.sbf button{margin-top:8px}
+.main{flex:1;min-width:0}.top{display:flex;align-items:center;gap:14px;padding:16px 28px;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(8px);position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line)}
+.top h2{margin:0;font-size:19px}.top small{color:var(--mute)}.top .sp{flex:1}.burger{display:none}
+.ic{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 11px;cursor:pointer;font:600 13px inherit}
+.pg{padding:24px 28px 60px;max-width:1600px;margin:auto}h3{margin:0 0 12px;font-size:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:18px;box-shadow:var(--sh)}
+.hero{background:linear-gradient(120deg,#4f3df5,#8b5cf6 60%,#c084fc);color:#fff;border-radius:18px;padding:26px 28px;margin-bottom:18px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:230px;height:230px;border-radius:50%;background:rgba(255,255,255,.12)}
+.hero h1{margin:0 0 6px;font-size:26px;letter-spacing:-.4px}.hero p{margin:0;opacity:.92;max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-bottom:18px}.grid .card{margin:0}
+.stat .k{font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.07em;font-weight:700}.stat .v{font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1.2;margin-top:4px}.stat .s{font-size:12px;color:var(--mute)}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}.row>div{display:flex;flex-direction:column;gap:5px;flex:1;min-width:160px}
+label{font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em;font-weight:700}.ck{display:flex!important;flex-direction:row!important;align-items:center;gap:8px;text-transform:none;font-size:14px;color:var(--ink);letter-spacing:0;flex:0 0 auto!important}
+select,textarea,input[type=text],input[type=password],input[type=number]{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;width:100%}
+select:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:1px}textarea{min-height:150px;resize:vertical;line-height:1.5}
+.b{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:0;border-radius:10px;padding:11px 20px;font:700 14px inherit;cursor:pointer;box-shadow:0 4px 12px rgba(91,75,255,.28)}
+.b.alt{background:var(--card);color:var(--ink);border:1px solid var(--line);box-shadow:none}.b:disabled{opacity:.55;cursor:wait}.b:hover:not(:disabled){filter:brightness(1.08)}
+.pill{display:inline-block;padding:3px 11px;border-radius:99px;font-size:12px;font-weight:700;background:var(--soft);color:var(--acc);margin:0 6px 5px 0}
+.pill.Easy{background:#dcfce7;color:#15803d}.pill.Medium{background:#fef3c7;color:#b45309}.pill.Hard{background:#fee2e2;color:#b91c1c}
+[data-t=dark] .pill.Easy{background:#14532d;color:#86efac}[data-t=dark] .pill.Medium{background:#78350f;color:#fcd34d}[data-t=dark] .pill.Hard{background:#7f1d1d;color:#fca5a5}
+.q{font-size:21px;font-weight:650;line-height:1.4;margin:8px 0 16px;letter-spacing:-.2px}.msg{padding:11px 14px;border-radius:10px;margin:10px 0;font-size:14px}
+.err{background:#fee2e2;color:#7f1d1d;border:1px solid #fecaca}.info{background:var(--soft);border:1px solid var(--line)}.ok{background:#dcfce7;color:#14532d;border:1px solid #bbf7d0}
+.ring{--p:0;--c:var(--good);width:112px;height:112px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1%),var(--line) 0);display:grid;place-items:center}
+.ring span{width:84px;height:84px;border-radius:50%;background:var(--card);display:grid;place-items:center;font:800 30px inherit}
+.Strong{--c:var(--good)}.Partial{--c:var(--mid)}.Needs{--c:var(--bad)}.bar{height:9px;background:var(--line);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--teal));border-radius:9px}
+.mute{color:var(--mute);font-size:13px}.chip{background:var(--soft);color:var(--acc);padding:4px 11px;border-radius:8px;margin:3px 4px 3px 0;display:inline-block;font-size:13px;font-weight:600}.chip.g{background:#dcfce7;color:#166534}[data-t=dark] .chip.g{background:#14532d;color:#bbf7d0}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.07em}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:s .7s linear infinite;vertical-align:-2px;margin-right:7px}.ld{border-color:var(--line);border-top-color:var(--acc)}@keyframes s{to{transform:rotate(360deg)}}
+.drop{text-transform:none;letter-spacing:0;font-size:15px;font-weight:400;color:var(--ink);display:block;border:2px dashed var(--line);border-radius:16px;padding:34px 20px;text-align:center;cursor:pointer;background:var(--bg);transition:.15s}.drop:hover,.drop.on{border-color:var(--acc);background:var(--soft)}
+.drop svg{width:42px;height:42px;stroke:var(--acc);fill:none;stroke-width:1.6}.drop input{display:none}.drop b{display:block;margin-top:6px}
+.steps{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.steps span{flex:1;min-width:140px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--mute)}.steps b{color:var(--acc);margin-right:6px}
+.rec{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg);display:flex;flex-direction:column;gap:6px}.rec b{font-size:15px}
+details summary{cursor:pointer;font-weight:600}pre{white-space:pre-wrap;font:13px/1.5 Consolas,monospace;max-height:320px;overflow:auto;background:var(--bg);padding:12px;border-radius:10px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:16px;margin-bottom:18px}.two .card{margin:0}.hm td{text-align:center;font-weight:700;border:2px solid var(--card);padding:14px 6px}.hm th{text-align:center}.empty{text-align:center;padding:36px 20px}.empty svg{width:46px;height:46px;stroke:var(--acc);fill:none;stroke-width:1.5;margin-bottom:6px}.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.hero .b{background:#fff;color:#4f3df5;box-shadow:none}.hero .b.alt{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.4)}.big{font-size:40px!important}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:60;display:grid;place-items:center;padding:16px}.modal .card{width:min(420px,100%);margin:0}.toast{position:fixed;right:18px;bottom:18px;z-index:80;padding:12px 18px;border-radius:12px;font-weight:600;box-shadow:var(--sh);max-width:min(420px,90vw)}.toast.ok{background:#16a34a;color:#fff}.toast.err{background:#dc2626;color:#fff}.ring.sm{width:72px;height:72px}.ring.sm span{width:54px;height:54px;font-size:20px}
+svg text{fill:var(--mute);font:11px sans-serif}.ov{display:none}.scroll{overflow-x:auto}
+@media(max-width:900px){aside{position:fixed;left:0;transform:translateX(-105%);transition:.2s;box-shadow:0 0 40px rgba(0,0,0,.4)}aside.open{transform:none}.ov.open{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:25}
+.burger{display:block}.top small,.top .pill{display:none}.grid{grid-template-columns:1fr 1fr;gap:12px}.stat .v{font-size:26px}.top{padding:12px 16px}.pg{padding:16px 14px 50px}.hero{padding:20px}.hero h1{font-size:22px}.q{font-size:18px}}
+</style></head><body>
+<div class="app"><aside id="sb"><div class="brand"><div class="logo">IT</div><div><b>Interview Twin</b><small>AI Interview Preparation</small></div></div>
+<nav id="nav"></nav><div class="sbf"><div id="auth"></div><div style="margin-top:8px">Session <b id="sidv"></b></div><div style="opacity:.7;margin-top:4px">Flask - SQLite - scikit-learn</div><button class="ic" id="thm" onclick="theme()" style="width:100%">Toggle dark mode</button></div></aside>
+<div class="ov" id="ov" onclick="menu(false)"></div>
+<div class="main"><header class="top"><button class="ic burger" aria-label="Open menu" onclick="menu(true)">Menu</button><div><h2 id="ttl"></h2><small id="hsub"></small></div><div class="sp"></div><span class="pill" style="margin:0">Study aid - lexical scoring</span></header><main class="pg" id="main"></main></div></div>
+<script>
+const ICON={mock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',m:'<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9zM9 2v3M15 2v3M9 19v3M15 19v3M19 9h3M19 15h3M2 9h3M2 15h3"/>',q:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',a:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/>',d:'<path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/>',h:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',r:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'};
+const TABS=[["home","Home","Overview of your preparation"],["q","Interview Questions","Practice open-ended questions and get instant feedback"],["mock","Mock Interview","A full interview with an optional timer and a final summary"],["a","My Answers","Review every answer you have submitted"],["d","Performance Dashboard","Scores by topic and difficulty, strengths and weaknesses"],["m","ML Model","Difficulty classifier: training data, metrics and live predictions"],["h","Dataset Hub","Inspect the question datasets, preprocessing and clusters"],["r","Resume Analysis","Upload your resume and get personalised topics"]];
+const SID=localStorage.sid||(localStorage.sid="s"+Math.random().toString(36).slice(2,12));
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let F=null,cur=null,tab="home",pending=null;
+$("#sidv").textContent=SID.slice(0,6);if(localStorage.th)document.documentElement.dataset.t=localStorage.th;
+const theme=()=>{const t=document.documentElement.dataset.t=="dark"?"light":"dark";document.documentElement.dataset.t=t;localStorage.th=t};
+const menu=o=>{$("#sb").classList.toggle("open",o);$("#ov").classList.toggle("open",o)};
+let NAV=0;   // bumped on every tab change; slow GET responses from a tab we already left are dropped so they cannot overwrite the current page
+async function api(u,o){const t=NAV,r=await fetch(u,o);let j={};try{j=await r.json()}catch{}if(!o&&t!==NAV)await new Promise(()=>{});if(!r.ok)throw new Error(j.error||"Request failed ("+r.status+")");return j}
+const busy=(b,on,t)=>{b.disabled=on;if(on){b.dataset.t=b.textContent;b.innerHTML='<span class="spin"></span>'+(t||"Working...")}else b.textContent=b.dataset.t};
+const bar=v=>`<div class="bar"><i style="width:${v}%"></i></div>`,ld=()=>'<p class="mute"><span class="spin ld"></span>Loading...</p>';
+const stat=(k,v,s,id)=>`<div class="card stat"><div class="k">${k}</div><div class="v" ${id?`id="${id}"`:""}>${v}</div><div class="s" ${id?`id="${id}s"`:""}>${s||""}</div></div>`;
+function show(t){tab=t;NAV++;clearInterval(window._mt);menu(false);const T=TABS.find(x=>x[0]==t);$("#ttl").textContent=T[1];$("#hsub").textContent=T[2];
+ $("#nav").innerHTML=TABS.map(([k,n])=>`<button class="nv ${k==t?"on":""}" onclick="show('${k}')"><svg viewBox="0 0 24 24">${ICON[k]}</svg>${n}</button>`).join("");scrollTo(0,0);({home:vHome,mock:vMock,q:vQ,a:vA,d:vD,m:vM,h:vH,r:vR})[t]()}
+async function stats(){const [d,h]=await Promise.all([api("/api/datasets").catch(()=>null),api("/api/dashboard?session_id="+SID).catch(()=>null)]);
+ const set=(i,v,s)=>{if($("#"+i))$("#"+i).textContent=v;if($("#"+i+"s")&&s!=null)$("#"+i+"s").textContent=s};
+ if(d)set("st1",d.total_usable.toLocaleString(),"open-ended, from 2 datasets");
+ if(h&&d&&$("#attn"))$("#attn").textContent=`You have attempted ${h.total} of ${d.total_usable.toLocaleString()} questions.`;
+ if(h&&$("#st5")){set("st5",h.completed_mocks||0,"completed");set("st6",h.total?(100*h.progress.attempted/h.progress.total).toFixed(1)+"%":"0%",h.progress.attempted+" of "+h.progress.total.toLocaleString()+" attempted")}
+ if(h){set("st2",h.total,h.total?"answers submitted":"none yet");set("st3",h.total?h.average+"/100":"-",h.total?"across all attempts":"answer a question to start");
+  set("st4",h.weak.length,h.weak.length?h.weak.slice(0,2).map(w=>w.topic).join(", "):h.total?"none below 60":"needs answers")}}
+/* ---------- Interview Questions ---------- */
+async function vQ(){
+ $("#main").innerHTML=ld();
+ if(!F)try{F=await api("/api/filters")}catch(e){$("#main").innerHTML=`<div class="msg err">${esc(e.message)}</div>`;return}
+ const rs=await api("/api/resume?session_id="+SID).catch(()=>({}));
+ $("#main").innerHTML=`<p class="mute" id="attn" style="margin:0 0 12px"></p>
+ <div class="card"><h3>Choose your practice</h3><div class="row">
+  <div><label>Category</label><select id="fc"><option value="">All</option>${F.categories.map(c=>`<option>${esc(c)}</option>`)}</select></div>
+  <div><label>Topic</label><select id="ft"></select></div>
+  <div><label>Difficulty</label><select id="fd"><option value="">Any</option>${F.difficulties.map(c=>`<option>${c}</option>`)}</select></div></div>
+  <div class="row" style="margin-top:14px"><label class="ck"><input type="checkbox" id="fa"> Adaptive difficulty</label>${rs.resume?`<label class="ck"><input type="checkbox" id="fr"> Prefer resume topics</label>`:""}
+  <div style="flex:1"></div><button class="b" id="go" onclick="nextQ()" style="flex:0 0 auto">Get question</button></div></div><div id="qa"></div>`;
+ const fill=()=>{const c=$("#fc").value;$("#ft").innerHTML='<option value="">All</option>'+F.topics.filter(t=>!c||t.category==c).map(t=>`<option value="${esc(t.topic)}">${esc(t.topic)} (${t.count})</option>`)};
+ $("#fc").onchange=fill;fill();$("#fa").onchange=()=>{$("#fd").disabled=$("#fa").checked};stats();
+ if(pending){const p=pending;pending=null;$("#fc").value=p.category||"";fill();$("#ft").value=p.topic||"";$("#fd").value=p.difficulty||"";if($("#fr"))$("#fr").checked=!!p.resume;nextQ()}else if(cur)renderQ()}
+async function nextQ(){
+ const b=$("#go");busy(b,true,"Finding...");
+ const p=new URLSearchParams({session_id:SID,category:$("#fc").value,topic:$("#ft").value,difficulty:$("#fd").value});
+ if($("#fa").checked)p.set("adaptive","1");if($("#fr")?.checked)p.set("use_resume","1");
+ try{const j=await api("/api/questions/next?"+p);cur=j.question?{...j.question,why:j.difficulty_reason,left:j.remaining}:null;
+  if(!cur)$("#qa").innerHTML=`<div class="msg info">${esc(j.message)}</div>`;else renderQ()}
+ catch(e){$("#qa").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}busy(b,false)}
+function renderQ(){$("#qa").innerHTML=`<div class="card"><span class="pill ${cur.difficulty}">${cur.difficulty}</span><span class="pill">${esc(cur.category)}</span><span class="pill">${esc(cur.topic)}</span>
+ ${cur.why?`<div class="msg info"><b>Difficulty:</b> ${esc(cur.why)}</div>`:""}<div class="q">${esc(cur.question)}</div>
+ <textarea id="ans" maxlength="4000" placeholder="Type your answer in your own words..."></textarea>
+ <div class="row" style="margin-top:14px;align-items:center"><button class="b" id="sub" onclick="submitA()" style="flex:0 0 auto">Submit answer</button><button class="b alt" onclick="nextQ()" style="flex:0 0 auto">Skip</button><button class="b alt" onclick="show('d')" style="flex:0 0 auto">End session and view results</button><span class="mute" style="flex:1">${cur.left??""} unseen questions left in this filter</span></div><div id="res"></div></div>`}
+async function submitA(){
+ const b=$("#sub"),a=$("#ans").value.trim();if(a.length<3){$("#res").innerHTML='<div class="msg err">Please type an answer before submitting.</div>';return}
+ busy(b,true,"Evaluating...");
+ try{const j=await api("/api/evaluate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:SID,uid:cur.uid,answer:a})});
+  const r=j.result,k=r.label.split(" ")[0];
+  $("#res").innerHTML=`<hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><div class="row" style="align-items:center"><div style="flex:0 0 130px;align-items:center"><div class="ring ${k}" style="--p:${r.score}"><span>${r.score}</span></div><b style="margin-top:6px">${r.label}</b></div>
+  <div style="flex:3;min-width:240px;gap:10px">${[["Technical accuracy (estimated)",r.breakdown.technical_accuracy],["Relevance",r.breakdown.relevance],["Completeness",r.breakdown.completeness]].map(([n,v])=>`<div><div class="mute" style="display:flex;justify-content:space-between"><span>${n}</span><b>${v}%</b></div>${bar(v)}</div>`).join("")}</div></div>
+  <p><b>Concepts covered</b><br>${r.covered_concepts.map(c=>`<span class="chip g">${esc(c)}</span>`).join("")||"<span class='mute'>none detected</span>"}</p>
+  <p><b>Missing concepts</b><br>${r.missing_concepts.map(c=>`<span class="chip">${esc(c)}</span>`).join("")||"<span class='mute'>none</span>"}</p>
+  <b>How to improve</b><ul>${j.suggestions.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>
+  <details open><summary>Reference answer</summary><p>${esc(j.reference_answer)}</p></details><button class="b" onclick="nextQ()">Next question</button>`;
+  $("#sub").disabled=true;$("#sub").textContent="Submitted";stats()}
+ catch(e){$("#res").innerHTML=`<div class="msg err">${esc(e.message)}</div>`;busy(b,false)}}
+/* ---------- My Answers ---------- */
+async function vA(){
+ $("#main").innerHTML=ld();
+ try{const {attempts}=await api("/api/history?session_id="+SID);
+  $("#main").innerHTML=attempts.length?`<div class="row" style="align-items:center;margin-bottom:12px"><span class="mute" style="flex:1">${attempts.length} attempt(s), newest first</span><button class="b alt" style="flex:0 0 auto" onclick="dlReport()">Download PDF report</button></div>`+attempts.map(a=>{const k=a.label.split(" ")[0];return `<div class="card"><div class="row" style="align-items:center"><div style="flex:3"><span class="pill ${a.difficulty}">${a.difficulty}</span><span class="pill">${esc(a.topic)}</span><span class="mute">${new Date(a.created_at).toLocaleString()}</span></div>
+  <div style="flex:0 0 auto;align-items:center"><div class="ring ${k}" style="--p:${a.score};width:64px;height:64px"><span style="width:48px;height:48px;font-size:17px">${a.score}</span></div></div></div>
+  <div style="margin:8px 0;font-weight:650">${esc(a.question)}</div><div class="mute">Your answer</div><p style="margin:2px 0 10px">${esc(a.user_answer)}</p>
+  <details><summary>Feedback and reference answer</summary><ul>${a.feedback.map(f=>`<li>${esc(f)}</li>`).join("")}</ul><p><b>Reference:</b> ${esc(a.reference)}</p></details></div>`}).join(""):`<div class="card" style="text-align:center;padding:40px"><h3>No answers yet</h3><p class="mute">Submit your first answer to see it here.</p><button class="b" onclick="show('q')">Start practising</button></div>`}
+ catch(e){$("#main").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}}
+/* ---------- charts ---------- */
+const pc=v=>(v*100).toFixed(1)+"%";
+function trendSvg(trend){if(!trend.length)return '<p class="mute">No answers yet.</p>';const W=620,H=190,n=trend.length,pts=trend.map((t,i)=>[40+(n==1?260:i*(W-60)/(n-1)),H-26-t.score*(H-52)/100]);
+ return `<svg viewBox="0 0 ${W} ${H}" width="100%">${[0,50,100].map(v=>`<line x1="40" x2="${W-10}" y1="${H-26-v*(H-52)/100}" y2="${H-26-v*(H-52)/100}" stroke="var(--line)" stroke-dasharray="${v?3:0}"/><text x="6" y="${H-22-v*(H-52)/100}">${v}</text>`).join("")}
+ ${n>1?`<polyline fill="none" stroke="var(--acc)" stroke-width="3" stroke-linejoin="round" points="${pts.map(p=>p.join(",")).join(" ")}"/>`:""}${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="var(--card)" stroke="var(--acc)" stroke-width="2.5"/>`).join("")}<text x="${W/2-40}" y="${H-4}">Answer number (oldest to newest)</text></svg>`}
+const barList=(a,key,sub)=>a.length?a.map(t=>`<div style="margin:12px 0"><div style="display:flex;justify-content:space-between"><span>${esc(t[key])} <span class="mute">(${t.attempts} answer${t.attempts==1?"":"s"})</span></span><b style="color:${t.avg<60?"var(--bad)":"var(--good)"}">${t.avg}</b></div>${bar(t.avg)}</div>`).join(""):'<p class="mute">No data yet.</p>';
+const empty=(title,msg,btn)=>`<div class="card empty"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><h3>${title}</h3><p class="mute">${msg}</p>${btn||""}</div>`;
+const heat=h=>h.topics.length?`<div class="scroll"><table class="hm"><tr><th></th>${h.difficulties.map(d=>`<th>${d}</th>`).join("")}</tr>${h.topics.map((t,i)=>`<tr><th style="text-align:left">${esc(t)}</th>${h.cells[i].map(v=>v==null?'<td class="mute">-</td>':`<td style="background:${v<60?"rgba(220,38,38,.28)":v<75?"rgba(217,119,6,.28)":"rgba(22,163,74,.28)"}">${v}</td>`).join("")}</tr>`).join("")}</table></div><p class="mute">Average score per topic and level. Red below 60, amber 60-74, green 75+.</p>`:'<p class="mute">No data yet.</p>';
+function toast(m,t){const e=document.createElement("div");e.className="toast "+(t||"ok");e.textContent=m;document.body.appendChild(e);setTimeout(()=>e.remove(),3500)}
+async function dlReport(mid){try{const r=await fetch(`/api/report.pdf?session_id=${SID}`+(mid?`&mock_id=${mid}`:""));if(!r.ok){let j={};try{j=await r.json()}catch{}throw new Error(j.error||"Could not create the report.")}
+ const u=URL.createObjectURL(await r.blob()),a=document.createElement("a");a.href=u;a.download="interview-twin-report.pdf";a.click();URL.revokeObjectURL(u);toast("PDF report downloaded")}catch(e){toast(e.message,"err")}}
+/* ---------- accounts ---------- */
+let USER=null,authMode="login";
+async function loadAuth(){const j=await api("/api/auth/me").catch(()=>({user:null}));USER=j.user;renderAuth()}
+function renderAuth(){$("#auth").innerHTML=USER?`<div>Signed in as <b>${esc(USER.username)}</b></div><button class="ic" style="width:100%;margin-top:8px" onclick="logout()">Log out</button>`:`<div style="opacity:.85">Guest mode. Sign in to keep your history on any device.</div><button class="ic" style="width:100%;margin-top:8px" onclick="authOpen()">Sign in / Register</button>`;$("#sidv").parentElement.style.display=USER?"none":""}
+function authOpen(){authMode="login";const m=document.createElement("div");m.className="modal";m.id="am";m.innerHTML=`<div class="card"><h3 id="at"></h3><label>Username</label><input type="text" id="au" autocomplete="username"><label style="display:block;margin-top:10px">Password</label><input type="password" id="ap" autocomplete="current-password"><div id="ae"></div>
+ <div class="btns"><button class="b" id="ab" onclick="authGo()"></button><button class="b alt" onclick="authSwitch()" id="as"></button><button class="b alt" onclick="$('#am').remove()">Cancel</button></div><p class="mute" style="margin-bottom:0">Passwords are stored hashed. Your guest history moves into your account.</p></div>`;document.body.appendChild(m);authSet();$("#ap").onkeydown=e=>{if(e.key=="Enter")authGo()};$("#au").focus()}
+function authSet(){$("#at").textContent=authMode=="login"?"Sign in":"Create account";$("#ab").textContent=authMode=="login"?"Sign in":"Register";$("#as").textContent=authMode=="login"?"Need an account?":"Have an account?";$("#ae").innerHTML=""}
+function authSwitch(){authMode=authMode=="login"?"register":"login";authSet()}
+async function authGo(){const b=$("#ab");busy(b,true,"Please wait...");try{const j=await api("/api/auth/"+authMode,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:$("#au").value,password:$("#ap").value,session_id:SID})});
+ USER=j.user;$("#am").remove();renderAuth();toast("Signed in as "+USER.username);show(tab)}catch(e){$("#ae").innerHTML=`<div class="msg err">${esc(e.message)}</div>`;busy(b,false)}}
+async function logout(){await api("/api/auth/logout",{method:"POST"}).catch(()=>{});USER=null;renderAuth();toast("Logged out");show(tab)}
+/* ---------- Home ---------- */
+async function vHome(){
+ $("#main").innerHTML=`<div class="hero"><h1>Welcome to Interview Twin</h1><p>An AI/ML interview preparation assistant: practise open-ended questions, get concept-level feedback, see which topics are weak, and let your resume and a trained difficulty model guide what you study next.</p>
+  <div class="btns"><button class="b" onclick="show('q')">Start practising</button><button class="b alt" onclick="show('r')">Upload resume</button><button class="b alt" onclick="show('m')">Try the ML model</button></div></div>
+ <div class="grid">${stat("Total questions","-","","st1")}${stat("Attempted answers","-","","st2")}${stat("Average score","-","","st3")}${stat("Weak topics","-","","st4")}${stat("Mock interviews","-","","st5")}${stat("Bank progress","-","","st6")}</div>
+ <div class="two"><div class="card"><h3>Score trend</h3><div id="h1">${ld()}</div></div><div class="card"><h3>Score by difficulty</h3><div id="h2">${ld()}</div></div></div>
+ <div class="two"><div class="card"><h3>Resume status</h3><div id="h3">${ld()}</div></div><div class="card"><h3>ML model snapshot</h3><div id="h4">${ld()}</div></div></div>
+ <div class="two"><div class="card"><h3>Recommended for you</h3><div id="h5">${ld()}</div></div><div class="card"><h3>Suggested next activities</h3><div id="h6">${ld()}</div></div></div>`;
+ api("/api/recommend?limit=4&session_id="+SID).then(j=>{$("#h5").innerHTML=j.questions.map(q=>`<div class="rec" style="margin-bottom:10px"><div><span class="pill ${q.difficulty}">${q.difficulty}</span><span class="pill">${esc(q.topic)}</span></div><div>${esc(q.question)}</div><div class="mute">Why: ${esc(q.reason)}</div></div>`).join("")+`<details><summary class="mute">How are these chosen?</summary><ul class="mute">${j.explanation.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`;
+  }).catch(e=>{$("#h5").innerHTML=`<div class="msg err">${esc(e.message)}</div>`});
+ api("/api/dashboard?session_id="+SID).then(d=>{$("#h6").innerHTML=`<ul>${d.suggested_next.map(x=>`<li style="margin-bottom:8px">${esc(x)}</li>`).join("")}</ul><div class="btns"><button class="b" onclick="show('q')">Practise</button><button class="b alt" onclick="show('mock')">Mock interview</button></div>`}).catch(()=>{});
+ stats();
+ api("/api/dashboard?session_id="+SID).then(d=>{$("#h1").innerHTML=trendSvg(d.trend);$("#h2").innerHTML=d.total?barList(d.by_difficulty,"difficulty"):'<p class="mute">Answer a few questions to see scores by difficulty.</p>'}).catch(e=>{$("#h1").innerHTML=$("#h2").innerHTML=`<div class="msg err">${esc(e.message)}</div>`});
+ api("/api/resume?session_id="+SID).then(j=>{$("#h3").innerHTML=j.resume?`<p><b>${esc(j.resume.filename)}</b> analysed: ${j.resume.skill_count} skills, ${j.resume.recommended_topics.length} recommended topics.</p><button class="b alt" onclick="show('r')">View analysis</button>`:`<p class="mute">Upload your resume to get personalized recommendations.</p><button class="b" onclick="show('r')">Upload resume</button>`}).catch(()=>{});
+ api("/api/ml/metrics").then(m=>{$("#h4").innerHTML=`<p class="mute">${esc(m.model_name)}</p><div class="row"><div><div class="mute">Accuracy</div><b class="big">${pc(m.accuracy)}</b></div><div><div class="mute">Macro F1</div><b class="big">${pc(m.f1_macro)}</b></div></div><p class="mute">Measured on ${m.test_size} held-out questions (baseline accuracy ${pc(m.baseline_majority_accuracy)}).</p><button class="b alt" onclick="show('m')">See full evaluation</button>`}).catch(e=>{$("#h4").innerHTML=`<div class="msg err">${esc(e.message)}</div>`})}
+/* ---------- Dashboard ---------- */
+async function vD(){
+ $("#main").innerHTML=ld();
+ try{const d=await api("/api/dashboard?session_id="+SID);
+  if(!d.total){$("#main").innerHTML=empty("No data yet",esc(d.recommendations[0]),'<button class="b" onclick="show(\'q\')">Answer a question</button>');return}
+  $("#main").innerHTML=`<div class="grid">${stat("Attempted answers",d.total)}${stat("Average score",d.average+"/100")}${stat("Weak topics (&lt;60)",d.weak.length,d.weak.map(w=>w.topic).slice(0,3).join(", ")||"none")}${stat("Strong topics (75+)",d.strong.length,d.strong.map(w=>w.topic).slice(0,3).join(", ")||"none yet")}${stat("Mock interviews",d.completed_mocks,"completed")}${stat("Question bank progress",(100*d.progress.attempted/d.progress.total).toFixed(1)+"%",d.progress.attempted+" of "+d.progress.total.toLocaleString()+" attempted")}</div>
+  <div class="card"><h3>Score trend</h3>${trendSvg(d.trend)}</div>
+  <div class="two"><div class="card"><h3>Performance by topic</h3>${barList(d.topics,"topic")}</div><div class="card"><h3>Performance by difficulty</h3>${barList(d.by_difficulty,"difficulty")}</div></div>
+  <div class="two"><div class="card"><h3>Weak topics</h3>${d.weak.length?d.weak.map(w=>`<span class="chip" style="background:#fee2e2;color:#b91c1c">${esc(w.topic)} ${w.avg}</span>`).join(""):'<p class="mute">None below 60. Nice work.</p>'}<h3 style="margin-top:16px">Strong topics</h3>${d.strong.length?d.strong.map(w=>`<span class="chip g">${esc(w.topic)} ${w.avg}</span>`).join(""):'<p class="mute">None at 75+ yet.</p>'}</div>
+  <div class="card"><h3>Revision recommendations</h3><ul>${d.recommendations.map(r=>`<li style="margin-bottom:8px">${esc(r)}</li>`).join("")}</ul></div></div>
+  <div class="two"><div class="card"><h3>Topic x difficulty heatmap</h3>${heat(d.heatmap)}</div><div class="card"><h3>Frequently missed concepts</h3>${d.frequent_missing.length?d.frequent_missing.map(m=>`<span class="chip">${esc(m.concept)} x${m.count}</span>`).join(""):'<p class="mute">None recorded.</p>'}<h3 style="margin-top:16px">Most practised topics</h3>${d.frequent_topics.map(t=>`<span class="chip g">${esc(t.topic)} (${t.attempts})</span>`).join("")}</div></div>
+  <div class="card"><h3>Suggested next activities</h3><ul>${d.suggested_next.map(x=>`<li style="margin-bottom:6px">${esc(x)}</li>`).join("")}</ul><div class="btns"><button class="b" onclick="show('q')">Practise</button><button class="b alt" onclick="show('mock')">Start a mock interview</button></div></div>
+  <div class="card"><h3>Recent answers</h3><div class="scroll"><table><tr><th>When</th><th>Topic</th><th>Question</th><th>Level</th><th>Score</th></tr>${d.recent.map(r=>`<tr><td class="mute">${new Date(r.created_at).toLocaleString()}</td><td>${esc(r.topic)}</td><td>${esc(r.question)}</td><td><span class="pill ${r.difficulty}">${r.difficulty}</span></td><td><b>${r.score}</b> <span class="mute">${esc(r.label)}</span></td></tr>`).join("")}</table></div><button class="b alt" style="margin-top:12px" onclick="show('a')">View full history</button> <button class="b alt" style="margin-top:12px" onclick="dlReport()">Download PDF report</button></div>`}
+ catch(e){$("#main").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}}
+/* ---------- ML Model ---------- */
+async function vM(){
+ $("#main").innerHTML=ld();
+ try{const m=await api("/api/ml/metrics"),C=m.classes,cm=m.confusion_matrix;
+  $("#main").innerHTML=`<div class="card"><h3>What does this model do?</h3><p>It reads the <b>wording of an interview question</b> and predicts whether it is <b>Easy, Medium or Hard</b>. It learned this from ${m.train_size.toLocaleString()} labelled questions in this project: the text is turned into numbers with TF-IDF (which words and two-word phrases matter), and a Logistic Regression classifier learns which patterns go with each label. It was then tested on ${m.test_size.toLocaleString()} questions it never saw during training.</p>
+   <div class="msg ${m.f1_macro>=0.6?"ok":"info"}"><b>Honest reading:</b> ${esc(m.verdict)}</div></div>
+  <div class="grid">${stat("Accuracy",pc(m.accuracy),"baseline (always guess the commonest label): "+pc(m.baseline_majority_accuracy))}${stat("Precision (macro)",pc(m.precision_macro),"weighted: "+pc(m.precision_weighted))}${stat("Recall (macro)",pc(m.recall_macro),"weighted: "+pc(m.recall_weighted))}${stat("F1-score (macro)",pc(m.f1_macro),"baseline "+pc(m.baseline_majority_f1_macro)+" - 5-fold CV "+pc(m.cv_f1_macro_mean)+" +/- "+pc(m.cv_f1_macro_std))}</div>
+  <div class="two"><div class="card"><h3>Model and data</h3><table><tr><td>Model</td><td><b>${esc(m.model_name)}</b></td></tr><tr><td>Dataset size</td><td>${m.dataset_size.toLocaleString()} labelled, de-duplicated questions</td></tr><tr><td>Train / test split</td><td>${esc(m.split)}: ${m.train_size.toLocaleString()} / ${m.test_size.toLocaleString()}</td></tr><tr><td>Class counts</td><td>${C.map(c=>`<span class="pill ${c}">${c}: ${m.class_counts[c]}</span>`).join("")}</td></tr><tr><td>Class imbalance</td><td>handled with class_weight=balanced</td></tr><tr><td>Vocabulary</td><td>${m.vocabulary_size.toLocaleString()} terms (1-2 word phrases)</td></tr><tr><td>Random state</td><td>${m.random_state} (reproducible)</td></tr></table></div>
+  <div class="card"><h3>Confusion matrix (test set)</h3><p class="mute">Rows = actual difficulty, columns = predicted. Darker = more questions.</p><table class="hm"><tr><th></th>${C.map(c=>`<th>Pred. ${c}</th>`).join("")}</tr>${cm.map((r,i)=>{const mx=Math.max(...r);return `<tr><th>Actual ${C[i]}</th>${r.map((v,j)=>`<td style="background:rgba(91,75,255,${(0.1+0.75*v/mx).toFixed(2)});color:${v/mx>0.55?"#fff":"inherit"}">${v}</td>`).join("")}</tr>`}).join("")}</table></div></div>
+  <div class="card"><h3>Per-class results</h3><div class="scroll"><table><tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1</th><th>Test questions</th><th>Words that push towards this class</th></tr>${C.map(c=>{const r=m.per_class[c];return `<tr><td><span class="pill ${c}">${c}</span></td><td>${pc(r.precision)}</td><td>${pc(r.recall)}</td><td>${pc(r.f1)}</td><td>${r.support}</td><td class="mute">${m.top_terms_per_class[c].map(esc).join(", ")}</td></tr>`}).join("")}</table></div></div>
+  <div class="card"><h3>Try it: predict a question's difficulty</h3><textarea id="mq" style="min-height:90px" placeholder="Type or paste an interview question, e.g. Explain how gradient descent works"></textarea>
+   <div class="row" style="margin-top:12px;align-items:center"><button class="b" id="mb" onclick="predictQ()" style="flex:0 0 auto">Predict difficulty</button><span class="mute" style="flex:1">Result is a rough hint, not a ground truth.</span></div><div id="mr"></div></div>
+  <div class="card"><h3>Sample predictions from the test set</h3><div class="scroll"><table><tr><th>Question</th><th>Actual</th><th>Predicted</th><th>Confidence</th></tr>${m.sample_predictions.map(r=>`<tr><td>${esc(r.question)}</td><td><span class="pill ${r.actual}">${r.actual}</span></td><td><span class="pill ${r.predicted}">${r.predicted}</span> ${r.actual==r.predicted?"&#10003;":"&#10007;"}</td><td>${pc(r.confidence)}</td></tr>`).join("")}</table></div></div>
+  <div class="card"><h3>Limitations</h3><ul>${m.limitations.map(l=>`<li>${esc(l)}</li>`).join("")}</ul></div>`}
+ catch(e){$("#main").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}}
+async function predictQ(){const b=$("#mb"),q=$("#mq").value.trim();if(q.length<8){$("#mr").innerHTML='<div class="msg err">Enter a question of at least 8 characters.</div>';return}
+ busy(b,true,"Predicting...");
+ try{const j=await api("/api/ml/predict",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:q})});
+  $("#mr").innerHTML=`<div style="margin-top:14px"><span class="pill ${j.predicted}" style="font-size:15px">Predicted: ${j.predicted}</span> <span class="mute">confidence ${pc(j.confidence)}</span></div>${Object.entries(j.probabilities).map(([k,v])=>`<div style="margin:8px 0"><div class="mute" style="display:flex;justify-content:space-between"><span>${k}</span><b>${pc(v)}</b></div>${bar(Math.round(v*100))}</div>`).join("")}${j.warning?`<div class="msg err">${esc(j.warning)}</div>`:""}<p class="mute">${esc(j.note)}</p>`}
+ catch(e){$("#mr").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}busy(b,false)}
+/* ---------- Mock Interview ---------- */
+let M=null;
+async function vMock(){
+ if(M&&M.summary)return mockSummary();if(M)return mockRun();
+ $("#main").innerHTML=ld();
+ try{const [f,rs,ls]=await Promise.all([F?F:api("/api/filters"),api("/api/resume?session_id="+SID).catch(()=>({})),api("/api/mock?session_id="+SID).catch(()=>({mocks:[]}))]);F=f;
+  $("#main").innerHTML=`<div class="card"><h3>Set up your mock interview</h3><p class="mute">Questions appear one at a time and are never repeated from your earlier answers. The timer is optional.</p><div class="row">
+   <div><label>Category</label><select id="mc"><option value="">All</option>${F.categories.map(c=>`<option>${esc(c)}</option>`)}</select></div><div><label>Topic</label><select id="mt"></select></div>
+   <div><label>Difficulty</label><select id="md"><option value="">Mixed</option>${F.difficulties.map(c=>`<option>${c}</option>`)}</select></div><div style="max-width:150px"><label>Questions (1-20)</label><input type="number" id="mn" min="1" max="20" value="5"></div></div>
+   <div class="row" style="margin-top:14px;align-items:center"><label class="ck"><input type="checkbox" id="mtm"> Use a timer</label><div style="max-width:200px"><select id="mts"><option value="60">1 min per question</option><option value="120" selected>2 min per question</option><option value="180">3 min per question</option><option value="300">5 min per question</option></select></div>
+   ${rs.resume?`<label class="ck"><input type="checkbox" id="mrs"> Prefer my resume topics</label>`:""}<div style="flex:1"></div><button class="b" id="mgo" onclick="startMock()" style="flex:0 0 auto">Start interview</button></div><div id="me"></div></div>
+  <div class="card"><h3>Previous mock interviews</h3>${ls.mocks.length?`<table><tr><th>Date</th><th>Answered</th><th>Average</th><th>Status</th><th></th></tr>${ls.mocks.map(m=>`<tr><td>${new Date(m.started_at).toLocaleString()}</td><td>${m.answered}/${m.total_questions}</td><td>${m.average??"-"}</td><td>${m.ended?"Completed":"Not finished"}</td><td>${m.answered?`<button class="b alt" onclick="dlReport(${m.id})">PDF report</button>`:""}</td></tr>`).join("")}</table>`:'<p class="mute">None yet. Your completed interviews will be listed here.</p>'}</div>`;
+  const fill=()=>{const c=$("#mc").value;$("#mt").innerHTML='<option value="">All</option>'+F.topics.filter(t=>!c||t.category==c).map(t=>`<option value="${esc(t.topic)}">${esc(t.topic)} (${t.count})</option>`)};$("#mc").onchange=fill;fill()}
+ catch(e){$("#main").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}}
+async function startMock(){const b=$("#mgo"),n=+$("#mn").value;if(!(n>=1&&n<=20)){$("#me").innerHTML='<div class="msg err">Choose between 1 and 20 questions.</div>';return}
+ busy(b,true,"Preparing...");
+ try{const j=await api("/api/mock/start",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:SID,category:$("#mc").value,topic:$("#mt").value,difficulty:$("#md").value,count:n,timer_seconds:$("#mtm").checked?+$("#mts").value:0,use_resume:!!$("#mrs")?.checked})});
+  M={id:j.mock_id,qs:j.questions,i:0,ans:{},timer:j.timer_seconds,note:j.note,summary:null};mockRun()}
+ catch(e){$("#me").innerHTML=`<div class="msg err">${esc(e.message)}</div>`;busy(b,false)}}
+function mockRun(){clearInterval(window._mt);const q=M.qs[M.i],a=M.ans[q.uid],done=Object.keys(M.ans).length,k=a?a.result.label.split(" ")[0]:"";
+ $("#main").innerHTML=`<div class="card"><div class="row" style="align-items:center"><div style="flex:3"><b>Mock interview</b> <span class="mute">Question ${M.i+1} of ${M.qs.length} - ${done} answered</span>${bar(Math.round(100*done/M.qs.length))}</div>${M.timer?`<div style="flex:0 0 130px;text-align:right"><div class="mute">Time left</div><b class="big" id="tm">--:--</b></div>`:""}</div>
+  ${M.note?`<div class="msg info">${esc(M.note)}</div>`:""}<div style="margin:12px 0">${M.qs.map((x,j)=>`<button class="b alt" style="padding:6px 13px;margin:2px;${j==M.i?"outline:2px solid var(--acc)":""}" onclick="M.i=${j};mockRun()">${j+1}${M.ans[x.uid]?" &#10003;":""}</button>`).join("")}</div>
+  <span class="pill ${q.difficulty}">${q.difficulty}</span><span class="pill">${esc(q.category)}</span><span class="pill">${esc(q.topic)}</span><div class="q">${esc(q.question)}</div>
+  ${a?`<div class="row" style="align-items:center"><div style="flex:0 0 90px"><div class="ring sm ${k}" style="--p:${a.result.score}"><span>${a.result.score}</span></div></div><div style="flex:3"><b class="${k}">${a.result.label}</b><p class="mute" style="margin:2px 0">Missing: ${a.result.missing_concepts.map(esc).join(", ")||"none"}</p></div></div><details><summary>Reference answer</summary><p>${esc(a.reference_answer)}</p></details>
+    <div class="btns"><button class="b" onclick="mockNext()">${done==M.qs.length?"Finish and see summary":"Next question"}</button><button class="b alt" onclick="mockEnd()">End interview</button></div>`
+  :`<textarea id="ma" maxlength="4000" placeholder="Type your answer..."></textarea><div id="mx"></div><div class="btns"><button class="b" id="msb" onclick="mockSubmit()">Submit answer</button><button class="b alt" onclick="mockNext(true)">Skip</button><button class="b alt" onclick="mockEnd()">End interview</button></div>`}</div>`;
+ if(M.timer&&!a){const t0=Date.now();const tick=()=>{const left=Math.max(0,M.timer-Math.floor((Date.now()-t0)/1000)),e=$("#tm");if(!e){clearInterval(window._mt);return}e.textContent=Math.floor(left/60)+":"+String(left%60).padStart(2,"0");e.style.color=left<=15?"var(--bad)":"";if(left==0){clearInterval(window._mt);toast("Time is up for this question","err");($("#ma")?.value.trim().length>=3)?mockSubmit(true):mockNext(true)}};tick();window._mt=setInterval(tick,1000)}}
+async function mockSubmit(){const b=$("#msb"),t=$("#ma").value.trim();if(t.length<3){$("#mx").innerHTML='<div class="msg err">Please type an answer, or press Skip.</div>';return}
+ busy(b,true,"Evaluating...");clearInterval(window._mt);const q=M.qs[M.i];
+ try{M.ans[q.uid]=await api("/api/evaluate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:SID,uid:q.uid,answer:t,mock_id:M.id})});mockRun()}
+ catch(e){$("#mx").innerHTML=`<div class="msg err">${esc(e.message)}</div>`;busy(b,false)}}
+function mockNext(skip){const n=M.qs.length;for(let d=1;d<=n;d++){const j=(M.i+d)%n;if(!M.ans[M.qs[j].uid]){M.i=j;return mockRun()}}mockEnd(true)}
+async function mockEnd(quiet){if(!quiet&&!confirm("End this interview now? Unanswered questions will be left out of the summary."))return;clearInterval(window._mt);
+ try{M.summary=await api(`/api/mock/${M.id}/end`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:SID})});mockSummary()}catch(e){toast(e.message,"err")}}
+function mockSummary(){const m=M.summary,k=m.average==null?"":(m.average>=75?"Strong":m.average>=45?"Partial":"Needs");
+ $("#main").innerHTML=`<div class="card"><h3>Interview complete</h3>${m.answered?`<div class="row" style="align-items:center"><div style="flex:0 0 130px"><div class="ring ${k}" style="--p:${m.average}"><span>${m.average}</span></div></div><div style="flex:3"><p style="margin:0"><b>${m.answered}</b> of ${m.total_questions} questions answered${m.unanswered?`, ${m.unanswered} skipped or unanswered`:""}.</p><p class="mute">Average score is an estimate from TF-IDF/cosine similarity and concept matching, not a judgement of real interview readiness.</p></div></div>`:'<p class="mute">You did not answer any question, so there is no score to show.</p>'}
+  <div class="btns"><button class="b" onclick="M=null;vMock()">Start another</button>${m.answered?`<button class="b alt" onclick="dlReport(${m.id})">Download PDF report</button>`:""}<button class="b alt" onclick="show('d')">Open dashboard</button></div></div>
+  ${m.answered?`<div class="two"><div class="card"><h3>Topic performance</h3>${barList(m.topics,"topic")}</div><div class="card"><h3>Concepts to revise</h3>${m.frequent_missing.length?m.frequent_missing.map(c=>`<span class="chip">${esc(c.concept)} x${c.count}</span>`).join(""):'<p class="mute">No missing concepts recorded.</p>'}</div></div>
+  <div class="card"><h3>Your answers</h3><div class="scroll"><table><tr><th>Question</th><th>Level</th><th>Score</th><th>Covered</th><th>Missing</th></tr>${m.answers.map(a=>`<tr><td>${esc(a.question)}</td><td><span class="pill ${a.difficulty}">${a.difficulty}</span></td><td><b>${a.score}</b> <span class="mute">${esc(a.label)}</span></td><td>${a.covered.map(x=>`<span class="chip g">${esc(x)}</span>`).join("")||"-"}</td><td>${a.missing.map(x=>`<span class="chip">${esc(x)}</span>`).join("")||"-"}</td></tr>`).join("")}</table></div></div>`:""}`}
+/* ---------- Dataset Hub ---------- */
+async function vH(){
+ $("#main").innerHTML=ld();
+ try{const d=await api("/api/datasets");
+  $("#main").innerHTML=`<div class="grid">${stat("Usable questions",d.total_usable.toLocaleString(),"open-ended, ready to practise")}${d.sources.map(s=>stat(esc(s.source.replace(/_/g," ")),s.raw_rows.toLocaleString()+" rows",(s.status_counts.converted||0)+" converted - "+(s.status_counts.needs_review||0)+" need review - "+(s.status_counts.duplicate||0)+" duplicate"))}</div>
+  <div class="card"><h3>Preprocessing summary</h3><ol>${d.preprocessing.map(n=>`<li>${esc(n)}</li>`).join("")}</ol><ul class="mute">${d.method_notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul></div>
+  ${d.sources.map(s=>`<div class="card"><h3>${esc(s.source)}</h3><p class="mute">Columns: ${s.columns.join(", ")} - read as ${s.encoding}</p>
+   <p><b>Difficulty</b><br>${Object.entries(s.difficulty).map(([k,v])=>`<span class="pill ${k}">${k}: ${v}</span>`).join("")}</p>
+   <p><b>Categories</b><br>${Object.entries(s.categories).map(([k,v])=>`<span class="pill">${esc(k)}: ${v}</span>`).join("")}</p><p><b>Topics</b> (${s.topics} in total, largest shown)<br>${Object.entries(s.top_topics).map(([k,v])=>`<span class="pill">${esc(k)}: ${v}</span>`).join("")}</p></div>`).join("")}
+  <div class="card"><h3>Data-quality findings</h3><ul><li>${d.quality.duplicate_ids_in_mcq} duplicate IDs in the quiz file</li><li>${d.quality.duplicate_questions_flagged} duplicate questions flagged and excluded</li><li>${d.quality.missing_option_cells} MCQ rows with a missing option</li><li>Quiz answer key: ${Object.entries(d.quality.answer_key_distribution).map(([k,v])=>k+"="+v).join(", ")} (almost all "A")</li></ul></div>
+  <div class="card"><h3>K-Means topic clusters</h3><div id="cl">${ld()}</div></div>
+  <div class="card"><h3>Inspect rows</h3><div class="row"><div style="max-width:300px"><label>Status</label><select id="hs"><option value="converted">Converted</option><option value="needs_review">Needs review (not converted)</option><option value="duplicate">Duplicate</option></select></div>
+  <div style="flex:0 0 auto"><button class="b" id="hb" onclick="rows()">Show 15 random rows</button></div></div><div id="hr"></div></div>`;rows();clusters()}
+ catch(e){$("#main").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}}
+async function clusters(){try{const j=await api("/api/datasets/clusters"),xs=j.points.map(p=>p.x),ys=j.points.map(p=>p.y),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys),W=700,H=400,col=c=>`hsl(${c*360/14} 70% 50%)`;
+ $("#cl").innerHTML=`<p class="mute">${esc(j.note)}</p><svg viewBox="0 0 ${W} ${H}" width="100%" style="background:var(--bg);border-radius:12px">${j.points.map(p=>`<circle cx="${20+(p.x-x0)/(x1-x0)*(W-40)}" cy="${H-20-(p.y-y0)/(y1-y0)*(H-40)}" r="4.5" fill="${col(p.c)}" opacity=".75"/>`).join("")}</svg><div style="margin-top:10px">${j.clusters.map(c=>`<span class="pill" style="border-left:10px solid ${col(c.id)}">${esc(c.label)}</span>`).join("")}</div>`}
+ catch(e){$("#cl").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}}
+async function rows(){const b=$("#hb");busy(b,true,"Loading...");
+ try{const j=await api("/api/datasets/rows?status="+$("#hs").value);
+  $("#hr").innerHTML=`<p class="mute">${j.total} rows with this status</p><div class="scroll"><table><tr><th>Topic</th><th>Question</th><th>Answer / reference</th><th>Note</th></tr>${j.rows.map(r=>`<tr><td>${esc(r.topic)}<br><span class="pill ${r.difficulty}">${r.difficulty}</span></td><td>${esc(r.question)}</td><td>${esc(r.answer)}</td><td class="mute">${esc(r.note)}</td></tr>`).join("")}</table></div>`}
+ catch(e){$("#hr").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}busy(b,false)}
+/* ---------- Resume ---------- */
+const MAXMB=5;
+async function vR(){
+ $("#main").innerHTML=`<div class="steps"><span><b>1</b>Upload PDF</span><span><b>2</b>Skills detected</span><span><b>3</b>Recommended topics</span><span><b>4</b>Start interview</span></div>
+ <div class="card"><h3>Upload your resume</h3><label class="drop" id="dz" for="rf"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <b>Click to choose a PDF, or drag and drop it here</b><span class="mute">PDF only, up to ${MAXMB} MB</span><input type="file" id="rf" accept="application/pdf,.pdf" onchange="pickR()"></label>
+  <div class="row" style="margin-top:14px;align-items:center"><span id="rn" class="mute" style="flex:1">No file selected.</span><button class="b" id="rb" onclick="upR()" style="flex:0 0 auto">Analyze resume</button></div><div id="rm"></div>
+  <p class="mute" style="margin-bottom:0">Your PDF is read in memory and not saved. Only the analysis result is kept for this browser session.</p></div><div id="rr"></div>`;
+ const dz=$("#dz");["dragenter","dragover"].forEach(e=>dz.addEventListener(e,x=>{x.preventDefault();dz.classList.add("on")}));["dragleave","drop"].forEach(e=>dz.addEventListener(e,x=>{x.preventDefault();dz.classList.remove("on")}));
+ dz.addEventListener("drop",x=>{if(x.dataTransfer.files.length){$("#rf").files=x.dataTransfer.files;pickR()}});
+ const j=await api("/api/resume?session_id="+SID).catch(()=>({}));window._opts=j.skill_options;if(j.resume)showR(j.resume,null);else noR()}
+function noR(){$("#rr").innerHTML=empty("No resume uploaded","Upload your resume to get personalized recommendations. General interview practice works without it.")}
+function pickR(){const f=$("#rf").files[0];$("#rm").innerHTML="";$("#rn").innerHTML=f?`Selected: <b>${esc(f.name)}</b> (${(f.size/1024).toFixed(0)} KB)`:"No file selected."}
+async function upR(){const f=$("#rf").files[0],b=$("#rb"),m=$("#rm");
+ const bad=!f?"Choose a PDF file first.":!/\.pdf$/i.test(f.name)?"Only PDF files are accepted.":f.size===0?"The file is empty.":f.size>MAXMB*1048576?`File is too large (${(f.size/1048576).toFixed(1)} MB). Maximum is ${MAXMB} MB.`:"";
+ if(bad){m.innerHTML=`<div class="msg err">${bad}</div>`;return}
+ busy(b,true,"Analyzing...");m.innerHTML="";const fd=new FormData();fd.append("resume",f);fd.append("session_id",SID);
+ try{const r=await api("/api/resume",{method:"POST",body:fd});m.innerHTML=`<div class="msg ok">Analysis complete for <b>${esc(r.filename)}</b>.</div>`;showR(r,r.text)}
+ catch(e){m.innerHTML=`<div class="msg err">${esc(e.message)}</div>`;$("#rr").innerHTML=""}busy(b,false)}
+function skillOpts(cur){const o=window._opts||{};return Object.entries(o).map(([g,v])=>{const f=v.filter(x=>!cur.includes(x));return f.length?`<optgroup label="${esc(g)}">${f.map(x=>`<option>${esc(x)}</option>`).join("")}</optgroup>`:""}).join("")}
+async function setSkills(arr){try{showR(await api("/api/resume/skills",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:SID,skills:arr})}),window._txt)}catch(e){toast(e.message,"err")}}
+const rmSk=x=>setSkills(window._r.skills.filter(k=>k!=x)),addSk=()=>{const v=$("#sk")?.value;if(v)setSkills([...window._r.skills,v])};
+function showR(r,text){window._r=r;window._txt=text;
+ const L=a=>a?.length?`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:'<p class="mute">Nothing detected.</p>';
+ const grp=Object.entries(r.skills_by_group||{}),recs=r.recommended_topics||[];window._recs=recs;
+ $("#rr").innerHTML=`<div class="grid">${stat("Resume file",esc(r.filename||"resume.pdf")).replace('class="v"','class="v" style="font-size:18px;word-break:break-all"')}${stat("Skills detected",r.skill_count??r.skills.length)}${stat("Topics recommended",recs.length)}</div>
+ ${r.warning?`<div class="msg err">${esc(r.warning)}</div>`:""}
+ <div class="card"><h3>Detected skills <span class="mute" style="font-weight:400">- review and correct them</span></h3>${grp.length?grp.map(([g,v])=>`<div style="margin:8px 0"><span class="mute">${esc(g)}</span><br>${v.map(x=>`<span class="chip g">${esc(x)} <a href="#" onclick="rmSk('${esc(x)}');return false" title="Remove ${esc(x)}" style="color:inherit;text-decoration:none">&times;</a></span>`).join("")}</div>`).join(""):'<p class="mute">No skills selected.</p>'}
+  <div class="row" style="margin-top:12px;align-items:flex-end"><div style="max-width:320px"><label>Add a skill</label><select id="sk">${skillOpts(r.skills)}</select></div><div style="flex:0 0 auto"><button class="b alt" onclick="addSk()">Add skill</button></div></div>
+  ${r.edited?'<p class="mute">You edited these skills, so topics were recalculated from your list.</p>':'<p class="mute">Skills come from keyword matching, so check them. Removing or adding a skill updates the recommended topics.</p>'}</div>
+ <div class="card"><h3>Recommended interview topics</h3>${recs.length?`<div class="row" style="margin-bottom:14px"><div style="max-width:220px"><label>Difficulty</label><select id="rd"><option value="">Any</option><option>Easy</option><option>Medium</option><option>Hard</option></select></div>
+  <div style="flex:0 0 auto"><button class="b" onclick="startR('','','mix')">Start mixed resume interview</button></div></div>
+  <div class="grid" style="margin:0">${recs.map((t,i)=>`<div class="rec"><b>${esc(t.topic)}</b><span class="mute">${esc(t.category)} - ${t.questions_available} questions</span><div>${t.because.map(x=>`<span class="chip">${esc(x)}</span>`).join("")}</div><button class="b alt" onclick="startR(${i})">Start interview</button></div>`).join("")}</div>`:'<p class="mute">No matching topics were found.</p>'}
+  <p class="mute" style="margin-bottom:0">Prefer another topic? <a href="#" onclick="pending=null;show('q');return false" style="color:var(--acc);font-weight:600">Choose a topic manually</a>.</p></div>
+ <div class="card"><details><summary>How were these recommendations generated?</summary><p class="mute">${esc(r.how||"")}</p></details></div>
+ ${text?`<div class="card"><details><summary>Extracted resume text</summary><pre>${esc(text)}</pre></details></div>`:'<p class="mute">Extracted text is shown right after an upload and is not saved.</p>'}
+ <div class="card" id="rq">${ld()}</div><div class="btns"><button class="b alt" onclick="$('#rf').click()">Replace resume</button><button class="b alt" onclick="delR()">Remove resume</button></div>`;loadRQ()}
+async function loadRQ(){try{const j=await api("/api/resume/questions?session_id="+SID);if(!$("#rq"))return;
+ $("#rq").innerHTML=`<h3>Recommended interview questions from your skills</h3>`+(j.questions.length?j.questions.map(q=>`<div class="rec" style="margin-bottom:10px"><div><span class="pill ${q.difficulty}">${q.difficulty}</span><span class="pill">${esc(q.topic)}</span>${q.because.map(x=>`<span class="chip">${esc(x)}</span>`).join("")}</div><div>${esc(q.question)}</div><div><button class="b alt" onclick="pending={category:'${esc(q.category).replace(/'/g,"")}',topic:'${esc(q.topic).replace(/'/g,"")}',difficulty:'${q.difficulty}',resume:true};show('q')">Practise this topic</button></div></div>`).join(""):'<p class="mute">You have answered all questions in your recommended topics.</p>')}
+ catch(e){if($("#rq"))$("#rq").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}}
+function startR(i,_,mix){const d=$("#rd")?.value||"";
+ pending=mix?{category:"",topic:"",difficulty:d,resume:true}:{category:window._recs[i].category,topic:window._recs[i].topic,difficulty:d,resume:true};show("q")}
+async function delR(){try{await api("/api/resume?session_id="+SID,{method:"DELETE"});noR();$("#rm").innerHTML='<div class="msg ok">Resume removed.</div>'}catch(e){$("#rr").innerHTML=`<div class="msg err">${esc(e.message)}</div>`}}
+loadAuth().then(()=>show("home"));
+</script></body></html>
